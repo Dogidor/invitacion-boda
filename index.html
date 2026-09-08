@@ -78,13 +78,13 @@
         <source src="DISNEY-AMOR.mp4" type="video/mp4" />
         Tu navegador no puede reproducir este video.
       </video>
-      <button id="sonidoBtn" class="sonido-btn">🏰</button>
+      <button id="sonidoBtn" class="sonido-btn">🪄</button>
     </div>
 
     <section class="contenido">
       <h1 id="nombre">[Nombre]</h1>
       <p class="mensaje">Esta historia no sería la misma sin ti. Hemos reservado <span id="texto-cupos">[X] cupo(s)</span> para que nos acompañes en nuestro gran día.</p>
-      <a id="boton-informacion" class="boton" href="https://platypus-497yjd.my.canva.site/boda-feliz-andres-natalia">✨ Ver más información ✨</a>
+      <a id="boton-informacion" class="boton" href="https://platypus-497yjd.my.canva.site/boda-feliz-andres-natalia">Ver más información 🤍</a>
     </section>
   </main>
 
@@ -116,12 +116,12 @@
       if (video.paused) {
         video.muted = false;
         video.play();
-        sonidoBtn.textContent = "🪄"; // sonido activo
+        sonidoBtn.textContent = "🏰"; // ahora pausa
         sonidoBtn.classList.add("activo");
         setTimeout(() => sonidoBtn.classList.remove("activo"), 1200);
       } else {
         video.pause();
-        sonidoBtn.textContent = "🏰"; // detenido/silenciado
+        sonidoBtn.textContent = "🪄"; // ahora reproducir
         sonidoBtn.classList.add("activo");
         setTimeout(() => sonidoBtn.classList.remove("activo"), 1200);
       }
