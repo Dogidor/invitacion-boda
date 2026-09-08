@@ -4,16 +4,74 @@
   <meta charset="UTF-8">
   <title>Invitación de Matrimonio</title>
   <style>
-    body, html { margin:0; padding:0; height:100%; font-family:Arial, sans-serif; }
-    .video-bg { position:fixed; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:-1; }
-    .overlay { position:relative; text-align:center; color:white; margin-top:20%; }
-    button { margin-top:20px; padding:10px 20px; font-size:18px; cursor:pointer; }
-    #invitacion { display:none; padding:20px; background:white; color:black; margin:20px; border-radius:8px; }
+    body, html {
+      margin:0;
+      padding:0;
+      height:100%;
+      font-family:Arial, sans-serif;
+      overflow-x:hidden;
+    }
+
+    /* Video de fondo responsivo */
+    .video-bg {
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;   /* Ajusta el video para cubrir toda la pantalla */
+      z-index:-1;
+    }
+
+    /* Texto encima del video */
+    .overlay {
+      position:relative;
+      text-align:center;
+      color:white;
+      margin-top:20%;
+      padding:0 10px;
+    }
+
+    button {
+      margin-top:20px;
+      padding:10px 20px;
+      font-size:18px;
+      cursor:pointer;
+      border:none;
+      border-radius:6px;
+      background:#ffffffcc;
+      color:#000;
+    }
+
+    #invitacion {
+      display:none;
+      padding:20px;
+      background:white;
+      color:black;
+      margin:20px auto;
+      border-radius:8px;
+      max-width:600px;
+    }
+
+    /* Responsividad para móviles */
+    @media (max-width:768px) {
+      .overlay {
+        margin-top:40%;
+        font-size:14px;
+      }
+      button {
+        font-size:16px;
+        padding:8px 16px;
+      }
+      #invitacion {
+        font-size:14px;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Video de fondo -->
-  <video autoplay muted loop class="video-bg">
+  <video autoplay muted loop playsinline class="video-bg">
     <source src="DISNEY-AMOR.mp4" type="video/mp4">
     Tu navegador no soporta video.
   </video>
