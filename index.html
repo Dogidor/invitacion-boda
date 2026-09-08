@@ -10,11 +10,28 @@
     * { box-sizing:border-box; }
     body { margin:0; min-height:100vh; background:#f1f0ec; font-family:Georgia,"Times New Roman",serif; }
 
-    /* Contenedor principal */
     .invitacion { width:min(100%,480px); height:100svh; margin:0 auto; background:var(--fondo); display:flex; flex-direction:column; position:relative; }
 
-    .video-contenedor { flex:1; position:relative; overflow:hidden; background:#000; }
-    video { width:100%; height:100%; object-fit:cover; display:block; }
+    .video-contenedor { flex:1; position:relative; background:#000; }
+    video { 
+      width:100%; 
+      height:100%; 
+      object-fit:cover; 
+      display:block; 
+      filter:blur(12px) brightness(0.5); 
+      transition:filter 1s ease; 
+    }
+    video.activo { filter:blur(0) brightness(1); }
+
+    .overlay {
+      position:fixed; inset:0;
+      background:rgba(0,0,0,0.4);
+      backdrop-filter:blur(12px);
+      transition:opacity 1s ease;
+      pointer-events:none;
+      z-index:5;
+    }
+    .overlay.oculto { opacity:0; }
 
     .contenido { flex:0 0 270px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:14px 28px; text-align:center; }
     h1 { 
@@ -29,7 +46,6 @@
     .mensaje { max-width:380px; margin:0 auto; font-size:clamp(0.98rem,4vw,1.12rem); line-height:1.34; }
     .boton { margin-top:17px; padding:11px 24px; border-radius:999px; background:var(--boton); color:var(--boton-texto); text-decoration:underline; cursor:pointer; }
 
-    /* Botón con ícono verde */
     .sonido-btn {
       position:absolute; bottom:12px; right:12px;
       background:rgba(255,255,255,0.2);
@@ -42,17 +58,6 @@
     .sonido-btn img { width:28px; height:28px; transition:transform 0.3s ease, filter 0.3s ease; }
     .sonido-btn.activo img { transform:scale(1.2); filter:brightness(1.3); }
     .sonido-btn:hover { background:rgba(255,255,255,0.3); }
-
-    /* Overlay difuminado en toda la pantalla */
-    .overlay {
-      position:fixed; inset:0;
-      background:rgba(0,0,0,0.4);
-      backdrop-filter:blur(12px);
-      transition:opacity 1s ease;
-      pointer-events:none;
-      z-index:5;
-    }
-    .overlay.oculto { opacity:0; }
   </style>
 </head>
 <body>
@@ -73,7 +78,6 @@
     </section>
   </main>
 
-  <!-- Overlay difuminado en toda la pantalla -->
   <div id="overlay" class="overlay"></div>
 
   <script>
@@ -84,6 +88,7 @@
     function activarVideo() {
       video.muted = false;
       video.play();
+      video.classList.add("activo");
       overlay.classList.add("oculto");
       document.removeEventListener("click", activarVideo);
       document.removeEventListener("touchstart", activarVideo);
@@ -119,5 +124,4 @@
   </script>
 </body>
 </html>
-
 
