@@ -12,7 +12,7 @@
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; background: #f1f0ec; color: var(--texto); font-family: Georgia, "Times New Roman", serif; }
     .invitacion { width: min(100%, 480px); height: 100svh; margin: 0 auto; background: var(--fondo); overflow: hidden; display: flex; flex-direction: column; }
-    .video-contenedor { width: 100%; flex: 1 1 auto; min-height: 0; background: #171717; }
+    .video-contenedor { width: 100%; flex: 1 1 auto; min-height: 0; background: #171717; position: relative; }
     video { display: block; width: 100%; height: 100%; object-fit: cover; }
     .contenido { flex: 0 0 270px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px 28px 18px; text-align: center; }
     h1 { margin: 0 0 12px; font-family: "Great Vibes", "Brush Script MT", cursive; font-size: clamp(2.65rem, 10.5vw, 3.65rem); font-weight: 400; line-height: 0.9; }
@@ -28,16 +28,31 @@
       .mensaje { font-size: 0.93rem; }
       .boton { min-height: 44px; margin-top: 12px; }
     }
+
+    /* Botón de sonido */
+    .sonido-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.7);
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      font-size: 20px;
+    }
   </style>
 </head>
 <body>
   <main class="invitacion">
     <div class="video-contenedor">
-      <!-- Ahora el video se reproduce automáticamente -->
-      <video autoplay muted loop playsinline preload="metadata">
+      <!-- Video autoplay -->
+      <video id="video" autoplay muted loop playsinline preload="metadata">
         <source src="DISNEY-AMOR.mp4" type="video/mp4" />
         Tu navegador no puede reproducir este video.
       </video>
+      <button class="sonido-btn" onclick="activarSonido()">🔊</button>
     </div>
 
     <section class="contenido">
@@ -77,6 +92,12 @@
       } catch (error) {
         console.log("No se pudieron cargar los datos de la invitación.", error);
       }
+    }
+
+    function activarSonido() {
+      const video = document.getElementById("video");
+      video.muted = false;
+      video.play();
     }
 
     configurarBoton();
