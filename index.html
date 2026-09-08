@@ -14,7 +14,7 @@
     .overlay {
       position: fixed;
       inset: 0;
-      background: #fdfaf4;
+      background: linear-gradient(135deg, #2e7d32, #66bb6a);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -23,19 +23,35 @@
       font-size: 1.5rem;
       z-index: 999;
       animation: fadeIn 1.5s ease-out forwards;
+      color: #fff;
     }
     .sobre {
-      font-size: 8rem; /* más grande */
-      color: #2e7d32; /* verde elegante */
+      width: 220px;
+      height: 140px;
+      background: #388e3c;
+      position: relative;
       cursor: pointer;
-      transition: transform 0.8s ease, opacity 0.8s ease;
+      transition: transform 1s ease, opacity 1s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      border-radius: 6px;
     }
-    .sobre:hover {
-      transform: scale(1.1) rotate(-5deg);
+    .sobre::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-left: 110px solid transparent;
+      border-right: 110px solid transparent;
+      border-bottom: 70px solid #2e7d32;
+      transition: transform 1s ease;
+      transform-origin: top;
     }
-    .sobre.abierto {
-      transform: rotateX(180deg) scale(0.8);
-      opacity: 0;
+    .sobre.abierto::before {
+      transform: rotateX(180deg);
+    }
+    .overlay p {
+      margin-top: 20px;
+      font-size: 1.3rem;
     }
     @keyframes fadeIn {
       from { opacity: 0; filter: blur(8px); }
@@ -86,7 +102,7 @@
 <body>
   <!-- Overlay inicial -->
   <div id="overlay" class="overlay">
-    <div class="sobre" onclick="abrirSobre()">✉️</div>
+    <div class="sobre" onclick="abrirSobre()"></div>
     <p>Haz clic para abrir tu invitación</p>
   </div>
 
@@ -113,7 +129,7 @@
       setTimeout(() => {
         document.getElementById("overlay").style.display = "none";
         document.getElementById("invitacion").style.display = "flex";
-      }, 800);
+      }, 1000);
     }
 
     async function cargarInvitado() {
@@ -144,11 +160,4 @@
         video.pause();
         sonidoBtn.textContent = "►"; // reproducir
         sonidoBtn.classList.add("activo");
-        setTimeout(() => sonidoBtn.classList.remove("activo"), 1200);
-      }
-    });
-
-    cargarInvitado();
-  </script>
-</body>
-</html>
+        setTimeout
