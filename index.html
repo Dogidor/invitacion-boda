@@ -46,7 +46,7 @@
     .boton { display: inline-flex; align-items: center; justify-content: center; min-width: 218px; min-height: 48px; margin-top: 17px; padding: 11px 24px; border-radius: 999px; background: var(--boton); color: var(--boton-texto); font-size: 1rem; text-decoration: underline; text-underline-offset: 3px; transition: transform 160ms ease, filter 160ms ease; cursor: pointer; }
     .boton:hover { filter: brightness(0.95); transform: translateY(-1px); }
 
-    /* Botón play/pause centrado */
+    /* Botón play/pause centrado sin animación */
     .sonido-btn {
       position: absolute;
       bottom: 12px;
@@ -58,23 +58,14 @@
       height: 54px;
       cursor: pointer;
       font-size: 28px;
-      font-family: monospace;
+      font-family: sans-serif; /* mejor renderizado en móvil */
       color: #fff;
       backdrop-filter: blur(6px);
-      transition: background 0.3s ease;
       display: flex;
       align-items: center;
-      justify-content: center; /* círculo + ícono centrados */
+      justify-content: center; /* círculo + ícono perfectamente alineados */
     }
     .sonido-btn:hover { background: rgba(255,255,255,0.3); }
-    .sonido-btn.activo { animation: varitaMagica 1.2s ease-in-out; }
-    @keyframes varitaMagica {
-      0% { transform: rotate(0deg); }
-      25% { transform: rotate(10deg); }
-      50% { transform: rotate(-10deg); }
-      75% { transform: rotate(5deg); }
-      100% { transform: rotate(0deg); }
-    }
   </style>
 </head>
 <body>
@@ -88,7 +79,7 @@
         <source src="DISNEY-AMOR.mp4" type="video/mp4" />
         Tu navegador no puede reproducir este video.
       </video>
-      <button id="sonidoBtn" class="sonido-btn">▷</button>
+      <button id="sonidoBtn" class="sonido-btn">▶</button>
     </div>
     <section class="contenido">
       <h1 id="nombre">[Nombre]</h1>
@@ -119,14 +110,10 @@
       if (video.paused) {
         video.muted = false;
         video.play();
-        sonidoBtn.textContent = "■"; // pausa/stop
-        sonidoBtn.classList.add("activo");
-        setTimeout(() => sonidoBtn.classList.remove("activo"), 1200);
+        sonidoBtn.textContent = "❚❚"; // pausa
       } else {
         video.pause();
-        sonidoBtn.textContent = "▷"; // reproducir
-        sonidoBtn.classList.add("activo");
-        setTimeout(() => sonidoBtn.classList.remove("activo"), 1200);
+        sonidoBtn.textContent = "▶"; // reproducir
       }
     });
 
@@ -134,4 +121,5 @@
   </script>
 </body>
 </html>
+
 
