@@ -34,20 +34,20 @@
       position: absolute;
       bottom: 12px;
       right: 12px;
-      background: rgba(255,255,255,0.25); /* más transparente */
-      border: 2px solid rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.2); /* más transparente */
+      border: 2px solid rgba(255,255,255,0.4);
       border-radius: 50%;
       width: 54px;
       height: 54px;
       cursor: pointer;
       font-size: 24px;
       color: #fff;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(6px);
       transition: transform 0.2s ease, background 0.2s ease;
     }
     .sonido-btn:hover {
       transform: scale(1.1);
-      background: rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.3);
     }
   </style>
 </head>
@@ -59,7 +59,7 @@
         <source src="DISNEY-AMOR.mp4" type="video/mp4" />
         Tu navegador no puede reproducir este video.
       </video>
-      <button class="sonido-btn" onclick="activarSonido()">🎵</button>
+      <button id="sonidoBtn" class="sonido-btn">🎵</button>
     </div>
 
     <section class="contenido">
@@ -101,11 +101,19 @@
       }
     }
 
-    function activarSonido() {
-      const video = document.getElementById("video");
-      video.muted = false;
-      video.play();
-    }
+    // Alternar sonido
+    const video = document.getElementById("video");
+    const sonidoBtn = document.getElementById("sonidoBtn");
+    sonidoBtn.addEventListener("click", () => {
+      if (video.muted) {
+        video.muted = false;
+        video.play();
+        sonidoBtn.textContent = "🔊"; // icono cuando está con sonido
+      } else {
+        video.muted = true;
+        sonidoBtn.textContent = "🎵"; // icono cuando está silenciado
+      }
+    });
 
     configurarBoton();
     cargarInvitado();
