@@ -2,174 +2,121 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Una invitación especial</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
+  <title>Invitación con Sobre Animado</title>
   <style>
-    :root { --fondo:#fffdf9; --texto:#202020; --boton:#e4e8d5; --boton-texto:#4a4a4a; }
-    * { box-sizing:border-box; }
-    body { margin:0; min-height:100vh; background:#f1f0ec; font-family:Georgia,"Times New Roman",serif; overflow:hidden; }
+    body {
+      margin: 0;
+      background: #fdf6f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-    /* --- Animación del sobre --- */
-    .envelope {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 300px; height: 200px;
+    /* --- SOBRE --- */
+    .sobre {
+      position: relative;
+      width: 320px;
+      height: 220px;
       background: #fff;
       border: 2px solid #d4a373;
       border-radius: 8px;
-      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       cursor: pointer;
-      transition: transform 1s ease;
+      perspective: 1000px;
       z-index: 10;
     }
+
     .flap {
       position: absolute;
       top: 0; left: 0;
-      width: 100%; height: 100px;
+      width: 100%; height: 110px;
       background: #d4a373;
       clip-path: polygon(0 0, 100% 0, 50% 100%);
       transform-origin: top;
       transition: transform 1s ease;
     }
-    .envelope.open .flap { transform: rotateX(180deg); }
 
-    .butterfly {
+    .sobre.abierto .flap {
+      transform: rotateX(180deg);
+    }
+
+    /* --- MARIPOSAS --- */
+    .mariposa {
       position: absolute;
       width: 40px; height: 40px;
       background: url('https://cdn-icons-png.flaticon.com/512/1998/1998610.png') no-repeat center/contain;
       opacity: 0;
-      animation: fly 6s ease-in-out forwards;
+      animation: volar 6s ease-in-out forwards;
     }
-    @keyframes fly {
+
+    @keyframes volar {
       0% { opacity: 0; transform: translateY(0) scale(0.5); }
       20% { opacity: 1; }
       100% { transform: translate(-200px, -400px) rotate(360deg) scale(1); opacity: 0; }
     }
 
-    /* --- Invitación principal --- */
-    .invitacion { width:min(100%,480px); height:100svh; margin:0 auto; background:var(--fondo); display:flex; flex-direction:column; position:relative; z-index:1; }
-
-    .video-contenedor { flex:1; position:relative; background:#000; }
-    video { width:100%; height:100%; object-fit:cover; display:block; filter:blur(12px) brightness(0.5); transition:filter 1s ease; }
-    video.activo { filter:blur(0) brightness(1); }
-
-    .overlay {
-      position:fixed; inset:0;
-      background:rgba(0,0,0,0.4);
-      backdrop-filter:blur(12px);
-      transition:opacity 1s ease;
-      pointer-events:none;
-      z-index:5;
+    /* --- INVITACIÓN --- */
+    .invitacion {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: 'Georgia', serif;
+      color: #333;
+      animation: aparecer 1s ease forwards;
     }
-    .overlay.oculto { opacity:0; }
 
-    .contenido { flex:0 0 270px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:14px 28px; text-align:center; }
-    h1 { margin:0 0 12px; font-family:"Great Vibes",cursive; font-size:clamp(2.65rem,10.5vw,3.65rem); color:#92aa67; font-weight:400; }
-    .mensaje { max-width:380px; margin:0 auto; font-size:clamp(0.98rem,4vw,1.12rem); line-height:1.34; }
-    .boton { margin-top:17px; padding:11px 24px; border-radius:999px; background:var(--boton); color:var(--boton-texto); text-decoration:underline; cursor:pointer; }
-
-    .sonido-btn {
-      position:absolute; bottom:12px; right:12px;
-      background:rgba(255,255,255,0.2);
-      border:2px solid rgba(255,255,255,0.4);
-      border-radius:50%;
-      width:54px; height:54px;
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; z-index:3;
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .sonido-btn img { width:28px; height:28px; transition:transform 0.3s ease, filter 0.3s ease; }
-    .sonido-btn.activo img { transform:scale(1.2); filter:brightness(1.3); }
-    .sonido-btn:hover { background:rgba(255,255,255,0.3); }
+
+    h1 {
+      font-family: "Great Vibes", cursive;
+      font-size: 2.8rem;
+      color: #92aa67;
+      margin: 0 0 12px;
+    }
+    p { max-width: 380px; line-height: 1.4; }
+    a { margin-top: 15px; text-decoration: underline; color: #4a4a4a; }
   </style>
 </head>
 <body>
-  <!-- Sobre inicial -->
-  <div class="envelope" id="envelope">
+  <!-- SOBRE -->
+  <div class="sobre" id="sobre">
     <div class="flap"></div>
   </div>
 
-  <!-- Invitación -->
-  <main class="invitacion" style="display:none;" id="invitacion">
-    <div class="video-contenedor">
-      <video id="video" loop playsinline preload="metadata">
-        <source src="DISNEY-AMOR.mp4" type="video/mp4" />
-        Tu navegador no puede reproducir este video.
-      </video>
-      <button id="sonidoBtn" class="sonido-btn">
-        <img src="https://cdn-icons-png.flaticon.com/512/555/555159.png" alt="Play/Pause">
-      </button>
-    </div>
-    <section class="contenido">
-      <h1 id="nombre">[Nombre]</h1>
-      <p class="mensaje">Esta historia no sería la misma sin ti; por eso hemos reservado <span id="texto-cupos">2 cupos</span> para que nos acompañes en nuestro gran día.</p>
-      <a class="boton" href="https://platypus-497yjd.my.canva.site/boda-feliz-andres-natalia">Ver más información 🤍</a>
-    </section>
-  </main>
-
-  <div id="overlay" class="overlay"></div>
+  <!-- INVITACIÓN -->
+  <div class="invitacion" id="invitacion">
+    <h1>Andrés & Natalia</h1>
+    <p>Esta historia no sería la misma sin ti; por eso hemos reservado <strong>2 cupos</strong> para que nos acompañes en nuestro gran día.</p>
+    <a href="https://platypus-497yjd.my.canva.site/boda-feliz-andres-natalia">Ver más información 🤍</a>
+  </div>
 
   <script>
-    const envelope = document.getElementById("envelope");
+    const sobre = document.getElementById("sobre");
     const invitacion = document.getElementById("invitacion");
-    const video = document.getElementById("video");
-    const overlay = document.getElementById("overlay");
-    const sonidoBtn = document.getElementById("sonidoBtn");
 
-    envelope.addEventListener("click", () => {
-      envelope.classList.add("open");
+    sobre.addEventListener("click", () => {
+      sobre.classList.add("abierto");
       for (let i = 0; i < 6; i++) {
-        const butterfly = document.createElement("div");
-        butterfly.className = "butterfly";
-        butterfly.style.left = "150px";
-        butterfly.style.top = "100px";
-        butterfly.style.animationDelay = `${i * 0.5}s`;
-        document.body.appendChild(butterfly);
-        setTimeout(() => butterfly.remove(), 6000);
+        const mariposa = document.createElement("div");
+        mariposa.className = "mariposa";
+        mariposa.style.left = "160px";
+        mariposa.style.top = "110px";
+        mariposa.style.animationDelay = `${i * 0.4}s`;
+        document.body.appendChild(mariposa);
+        setTimeout(() => mariposa.remove(), 6000);
       }
       setTimeout(() => {
-        envelope.style.display = "none";
+        sobre.style.display = "none";
         invitacion.style.display = "flex";
-      }, 2000);
+      }, 2500);
     });
-
-    function activarVideo() {
-      video.muted = false;
-      video.play();
-      video.classList.add("activo");
-      overlay.classList.add("oculto");
-      document.removeEventListener("click", activarVideo);
-      document.removeEventListener("touchstart", activarVideo);
-    }
-    document.addEventListener("click", activarVideo);
-    document.addEventListener("touchstart", activarVideo);
-
-    sonidoBtn.addEventListener("click", () => {
-      if (video.paused) {
-        video.play();
-      } else {
-        video.pause();
-      }
-      sonidoBtn.classList.add("activo");
-      setTimeout(() => sonidoBtn.classList.remove("activo"), 300);
-    });
-
-    async function cargarInvitado() {
-      const id = new URLSearchParams(window.location.search).get("id");
-      if (!id) return;
-      try {
-        const respuesta = await fetch("invitados.json");
-        const invitados = await respuesta.json();
-        const invitado = invitados[id];
-        if (!invitado) return;
-        document.getElementById("nombre").textContent = invitado.nombre;
-        document.getElementById("texto-cupos").textContent = invitado.cupos === 1 ? "1 cupo" : `${invitado.cupos} cupos`;
-      } catch (error) {
-        console.log("No se pudieron cargar los datos de la invitación.", error);
-      }
-    }
-    cargarInvitado();
   </script>
 </body>
 </html>
