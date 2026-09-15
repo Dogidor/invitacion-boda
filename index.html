@@ -8,19 +8,51 @@
   <style>
     :root { --fondo:#fffdf9; --texto:#202020; --boton:#e4e8d5; --boton-texto:#4a4a4a; }
     * { box-sizing:border-box; }
-    body { margin:0; min-height:100vh; background:#f1f0ec; font-family:Georgia,"Times New Roman",serif; }
+    body { margin:0; min-height:100vh; background:#f1f0ec; font-family:Georgia,"Times New Roman",serif; overflow:hidden; }
 
-    .invitacion { width:min(100%,480px); height:100svh; margin:0 auto; background:var(--fondo); display:flex; flex-direction:column; position:relative; }
+    /* --- Animación del sobre --- */
+    .envelope {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px; height: 200px;
+      background: #fff;
+      border: 2px solid #d4a373;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 1s ease;
+      z-index: 10;
+    }
+    .flap {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100px;
+      background: #d4a373;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: transform 1s ease;
+    }
+    .envelope.open .flap { transform: rotateX(180deg); }
+
+    .butterfly {
+      position: absolute;
+      width: 40px; height: 40px;
+      background: url('https://cdn-icons-png.flaticon.com/512/1998/1998610.png') no-repeat center/contain;
+      opacity: 0;
+      animation: fly 6s ease-in-out forwards;
+    }
+    @keyframes fly {
+      0% { opacity: 0; transform: translateY(0) scale(0.5); }
+      20% { opacity: 1; }
+      100% { transform: translate(-200px, -400px) rotate(360deg) scale(1); opacity: 0; }
+    }
+
+    /* --- Invitación principal --- */
+    .invitacion { width:min(100%,480px); height:100svh; margin:0 auto; background:var(--fondo); display:flex; flex-direction:column; position:relative; z-index:1; }
 
     .video-contenedor { flex:1; position:relative; background:#000; }
-    video { 
-      width:100%; 
-      height:100%; 
-      object-fit:cover; 
-      display:block; 
-      filter:blur(12px) brightness(0.5); 
-      transition:filter 1s ease; 
-    }
+    video { width:100%; height:100%; object-fit:cover; display:block; filter:blur(12px) brightness(0.5); transition:filter 1s ease; }
     video.activo { filter:blur(0) brightness(1); }
 
     .overlay {
@@ -34,15 +66,7 @@
     .overlay.oculto { opacity:0; }
 
     .contenido { flex:0 0 270px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:14px 28px; text-align:center; }
-    h1 { 
-      margin:0 0 12px; 
-      font-family:"Great Vibes",cursive; 
-      font-size:clamp(2.65rem,10.5vw,3.65rem); 
-      color:#92aa67; 
-      font-weight:400; 
-      -webkit-font-smoothing:antialiased; 
-      text-rendering:optimizeLegibility;
-    }
+    h1 { margin:0 0 12px; font-family:"Great Vibes",cursive; font-size:clamp(2.65rem,10.5vw,3.65rem); color:#92aa67; font-weight:400; }
     .mensaje { max-width:380px; margin:0 auto; font-size:clamp(0.98rem,4vw,1.12rem); line-height:1.34; }
     .boton { margin-top:17px; padding:11px 24px; border-radius:999px; background:var(--boton); color:var(--boton-texto); text-decoration:underline; cursor:pointer; }
 
@@ -61,7 +85,13 @@
   </style>
 </head>
 <body>
-  <main class="invitacion">
+  <!-- Sobre inicial -->
+  <div class="envelope" id="envelope">
+    <div class="flap"></div>
+  </div>
+
+  <!-- Invitación -->
+  <main class="invitacion" style="display:none;" id="invitacion">
     <div class="video-contenedor">
       <video id="video" loop playsinline preload="metadata">
         <source src="DISNEY-AMOR.mp4" type="video/mp4" />
@@ -81,9 +111,28 @@
   <div id="overlay" class="overlay"></div>
 
   <script>
+    const envelope = document.getElementById("envelope");
+    const invitacion = document.getElementById("invitacion");
     const video = document.getElementById("video");
     const overlay = document.getElementById("overlay");
     const sonidoBtn = document.getElementById("sonidoBtn");
+
+    envelope.addEventListener("click", () => {
+      envelope.classList.add("open");
+      for (let i = 0; i < 6; i++) {
+        const butterfly = document.createElement("div");
+        butterfly.className = "butterfly";
+        butterfly.style.left = "150px";
+        butterfly.style.top = "100px";
+        butterfly.style.animationDelay = `${i * 0.5}s`;
+        document.body.appendChild(butterfly);
+        setTimeout(() => butterfly.remove(), 6000);
+      }
+      setTimeout(() => {
+        envelope.style.display = "none";
+        invitacion.style.display = "flex";
+      }, 2000);
+    });
 
     function activarVideo() {
       video.muted = false;
@@ -124,4 +173,3 @@
   </script>
 </body>
 </html>
-
