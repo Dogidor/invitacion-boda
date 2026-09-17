@@ -122,7 +122,7 @@
         document.body.addEventListener("click", () => {
           video.play();
           audio.play();
-        });
+        }, { once: true }); // solo la primera vez
 
         // Mostrar nombre y cupos en el segundo 22
         video.addEventListener("timeupdate", () => {
