@@ -106,12 +106,17 @@
         const respuesta = await fetch("invitados.json");
         const invitados = await respuesta.json();
         const invitado = invitados[id];
-        if (!invitado) return;
+        if (!invitado) {
+          console.error("Invitado no encontrado en invitados.json");
+          return;
+        }
 
         const videoSource = document.getElementById("videoSource");
-        videoSource.src = invitado.cupos > 1 ? "Plural.Mp4.mp4" : "Singular.Mp4.mp4";
-
         const video = document.getElementById("video");
+
+        // Selección de video según cupos
+        videoSource.src = invitado.cupos > 1 ? "Plural.Mp4.mp4" : "Singular.Mp4.mp4";
+        video.load(); // fuerza la recarga del archivo correcto
 
         // Iniciar video SOLO al hacer clic/touch
         document.body.addEventListener("click", () => {
