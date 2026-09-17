@@ -45,7 +45,7 @@
     }
     #texto-cupos {
       position: absolute;
-      top: 86%; /* ajustado */
+      top: 86%;
       left: 50%;
       transform: translateX(-50%);
       font-size: 1.5rem;
@@ -55,19 +55,25 @@
     }
     #boton-informacion {
       position: absolute;
-      top: 95%; /* ajustado */
+      top: 95%;
       left: 50%;
       transform: translateX(-50%);
-      background: #e4e8d5;
-      color: #4a4a4a;
-      padding: 10px 20px;
+      background: transparent;
+      color: #e4e8d5;
+      padding: 6px 14px; /* más delgado */
+      border: 1px solid #e4e8d5; /* borde fino */
       border-radius: 999px;
       text-decoration: none;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-family: 'Playfair Display', serif;
+      transition: all 0.3s ease;
+    }
+    #boton-informacion:hover {
+      background: #e4e8d5;
+      color: #000;
     }
 
-    /* Regla completa con marcas */
+    /* Regla de referencia */
     .regla {
       position: absolute;
       top: 0; left: 0;
@@ -99,7 +105,7 @@
       <source id="videoSource" src="" type="video/mp4" />
     </video>
 
-    <!-- Audio separado en loop infinito -->
+    <!-- Audio separado -->
     <audio id="audio">
       <source src="musica.mp3" type="audio/mp3" />
     </audio>
@@ -112,7 +118,7 @@
       </a>
     </section>
 
-    <!-- Regla de referencia -->
+    <!-- Regla -->
     <div class="regla">
       <div style="top:57%"><span>57%</span></div>
       <div style="top:86%"><span>86%</span></div>
@@ -161,6 +167,13 @@
           audio.play();
         });
 
+        // Vigilar que el audio nunca se detenga (extra seguridad en móviles)
+        setInterval(() => {
+          if (audio.paused) {
+            audio.play().catch(() => {});
+          }
+        }, 3000);
+
         // Si el video termina, el audio sigue
         video.addEventListener("ended", () => {
           if (audio.paused) audio.play();
@@ -173,3 +186,4 @@
   </script>
 </body>
 </html>
+
