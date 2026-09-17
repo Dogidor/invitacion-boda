@@ -39,8 +39,8 @@
       to { opacity: 1; transform: translateY(0); }
     }
     #nombre, #texto-cupos {
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-      font-weight: normal; /* evita negrilla */
+      font-weight: normal; /* sin negrilla */
+      text-shadow: none;   /* sin sombra */
     }
     #nombre {
       position: absolute;
@@ -73,7 +73,6 @@
       font-size: 0.9rem;
       font-family: 'Playfair Display', serif;
       transition: all 0.3s ease;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
     }
     #boton-informacion:hover {
       background: #e4e8d5;
@@ -83,13 +82,13 @@
 </head>
 <body>
   <div class="video-wrapper">
-    <!-- Video SIN loop, se reproduce una sola vez -->
-    <video id="video" autoplay playsinline poster="ultima_imagen.jpg">
+    <!-- Video SIN loop -->
+    <video id="video" playsinline poster="ultima_imagen.jpg">
       <source id="videoSource" src="Singular.Mp4.mp4" type="video/mp4" />
     </video>
 
     <!-- Audio separado en loop infinito -->
-    <audio id="audio" autoplay loop>
+    <audio id="audio" loop>
       <source src="musica.mp3" type="audio/mp3" />
     </audio>
 
@@ -117,7 +116,13 @@
         videoSource.src = invitado.cupos > 1 ? "Plural.Mp4.mp4" : "Singular.Mp4.mp4";
 
         const video = document.getElementById("video");
-        video.load();
+        const audio = document.getElementById("audio");
+
+        // Iniciar video y audio SOLO al hacer clic/tocar pantalla
+        document.body.addEventListener("click", () => {
+          video.play();
+          audio.play();
+        });
 
         // Mostrar nombre y cupos en el segundo 22
         video.addEventListener("timeupdate", () => {
