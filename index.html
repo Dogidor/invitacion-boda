@@ -13,6 +13,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      cursor: pointer; /* indica que se puede hacer clic */
     }
     .video-wrapper {
       width: 100%;
@@ -82,12 +83,12 @@
 </head>
 <body>
   <div class="video-wrapper">
-    <!-- Video SIN loop -->
+    <!-- Video SIN autoplay y SIN loop -->
     <video id="video" playsinline poster="ultima_imagen.jpg">
       <source id="videoSource" src="Singular.Mp4.mp4" type="video/mp4" />
     </video>
 
-    <!-- Audio separado en loop infinito -->
+    <!-- Audio SIN autoplay, pero con loop -->
     <audio id="audio" loop>
       <source src="musica.mp3" type="audio/mp3" />
     </audio>
@@ -118,11 +119,11 @@
         const video = document.getElementById("video");
         const audio = document.getElementById("audio");
 
-        // Iniciar video y audio SOLO al hacer clic/tocar pantalla
+        // Iniciar video y audio SOLO al hacer clic/touch
         document.body.addEventListener("click", () => {
           video.play();
           audio.play();
-        }, { once: true }); // solo la primera vez
+        }, { once: true });
 
         // Mostrar nombre y cupos en el segundo 22
         video.addEventListener("timeupdate", () => {
