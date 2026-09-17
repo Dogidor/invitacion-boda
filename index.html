@@ -3,128 +3,144 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Invitación Especial</title>
+  <title>Una invitación especial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
   <style>
+    :root { --fondo: #fffdf9; --texto: #202020; --boton: #e4e8d5; --boton-texto: #4a4a4a; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: #f1f0ec; color: var(--texto); font-family: Georgia, "Times New Roman", serif; }
+
+    /* Animación inicial estilo Disney */
     body {
-      margin: 0;
-      background: #fdf6f0;
-      font-family: 'Georgia', serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    /* --- SOBRE --- */
-    .sobre {
-      position: relative;
-      width: min(90%, 320px);
-      height: 200px;
-      background: #fff;
-      border: 2px solid #d4a373;
-      border-radius: 8px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-      cursor: pointer;
-      perspective: 1000px;
-      transition: transform 0.8s ease;
-    }
-    .flap {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100px;
-      background: #d4a373;
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      transform-origin: top;
-      transition: transform 1s ease;
-    }
-    .sobre.abierto .flap { transform: rotateX(180deg); }
-
-    /* --- MARIPOSAS --- */
-    .mariposa {
-      position: absolute;
-      width: 36px; height: 36px;
-      background: url('https://cdn-icons-png.flaticon.com/512/1998/1998610.png') no-repeat center/contain;
       opacity: 0;
-      animation: volar 5s ease-in-out forwards;
-    }
-    @keyframes volar {
-      0% { opacity: 0; transform: translateY(0) scale(0.5); }
-      20% { opacity: 1; }
-      100% { transform: translate(-150px, -350px) rotate(360deg) scale(1); opacity: 0; }
-    }
-
-    /* --- INVITACIÓN --- */
-    .invitacion {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px;
-      animation: aparecer 1s ease forwards;
+      filter: blur(12px);
+      animation: aparecer 1.8s ease-out forwards;
     }
     @keyframes aparecer {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+      0% { opacity: 0; filter: blur(12px); }
+      50% { opacity: 0.5; filter: blur(6px); }
+      100% { opacity: 1; filter: blur(0); }
     }
-    h1 {
-      font-family: "Great Vibes", cursive;
-      font-size: clamp(2rem, 8vw, 3rem);
-      color: #92aa67;
-      margin: 0 0 12px;
+
+    .invitacion { width: min(100%, 480px); height: 100svh; margin: 0 auto; background: var(--fondo); overflow: hidden; display: flex; flex-direction: column; }
+    .video-contenedor { width: 100%; flex: 1 1 auto; min-height: 0; background: #171717; position: relative; }
+    video { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .contenido { flex: 0 0 270px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px 28px 18px; text-align: center; }
+    h1 { 
+      margin: 0 0 12px; 
+      font-family: "Great Vibes", "Brush Script MT", cursive; 
+      font-size: clamp(2.65rem, 10.5vw, 3.65rem); 
+      font-weight: 400; 
+      line-height: 0.9; 
+      color: #92aa67; /* color especial para el nombre */
     }
-    p {
-      max-width: 360px;
-      font-size: clamp(1rem, 4vw, 1.2rem);
-      line-height: 1.4;
-      color: #333;
+    .mensaje { max-width: 380px; margin: 0 auto; font-size: clamp(0.98rem, 4vw, 1.12rem); line-height: 1.34; letter-spacing: 0.01em; }
+    .cupos { margin: 0; }
+    .boton { display: inline-flex; align-items: center; justify-content: center; min-width: 218px; min-height: 48px; margin-top: 17px; padding: 11px 24px; border-radius: 999px; background: var(--boton); color: var(--boton-texto); font-size: 1rem; text-decoration: underline; text-underline-offset: 3px; transition: transform 160ms ease, filter 160ms ease; cursor: pointer; }
+    .boton:hover { filter: brightness(0.95); transform: translateY(-1px); }
+
+    @media (max-height: 680px) {
+      .contenido { flex-basis: 245px; padding-top: 10px; padding-bottom: 12px; }
+      h1 { font-size: 2.45rem; margin-bottom: 9px; }
+      .mensaje { font-size: 0.93rem; }
+      .boton { min-height: 44px; margin-top: 12px; }
     }
-    a {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border-radius: 999px;
-      background: #e4e8d5;
-      color: #4a4a4a;
-      text-decoration: none;
-      font-size: 1rem;
+
+    /* Botón de sonido mágico */
+    .sonido-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 50%;
+      width: 54px;
+      height: 54px;
+      cursor: pointer;
+      font-size: 26px;
+      color: #fff;
+      backdrop-filter: blur(6px);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .sonido-btn:hover {
+      transform: scale(1.1);
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* Animación mágica */
+    .sonido-btn.activo {
+      animation: varitaMagica 1.2s ease-in-out;
+    }
+
+    @keyframes varitaMagica {
+      0% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(10deg) scale(1.1); }
+      50% { transform: rotate(-10deg) scale(1.1); }
+      75% { transform: rotate(5deg) scale(1.05); }
+      100% { transform: rotate(0deg) scale(1); }
     }
   </style>
 </head>
 <body>
-  <!-- SOBRE -->
-  <div class="sobre" id="sobre">
-    <div class="flap"></div>
-  </div>
+  <main class="invitacion">
+    <div class="video-contenedor">
+      <!-- Video sin autoplay -->
+      <video id="video" loop playsinline preload="metadata">
+        <source src="DISNEY-AMOR.mp4" type="video/mp4" />
+        Tu navegador no puede reproducir este video.
+      </video>
+      <button id="sonidoBtn" class="sonido-btn">🪄</button>
+    </div>
 
-  <!-- INVITACIÓN -->
-  <div class="invitacion" id="invitacion">
-    <h1>Andrés & Natalia</h1>
-    <p>Esta historia no sería la misma sin ti; por eso hemos reservado <strong>2 cupos</strong> para que nos acompañes en nuestro gran día.</p>
-    <a href="https://platypus-497yjd.my.canva.site/boda-feliz-andres-natalia">Ver más información 🤍</a>
-  </div>
+    <section class="contenido">
+      <h1 id="nombre">[Nombre]</h1>
+      <p class="mensaje">Esta historia no sería la misma sin ti. Hemos reservado <span id="texto-cupos">[X] cupo(s)</span> para que nos acompañes en nuestro gran día.</p>
+      <a id="boton-informacion" class="boton" href="https://platypus-497yjd.my.canva.site/boda-feliz-andres-natalia">Ver más información 🤍</a>
+    </section>
+  </main>
 
   <script>
-    const sobre = document.getElementById("sobre");
-    const invitacion = document.getElementById("invitacion");
+    async function cargarInvitado() {
+      const id = new URLSearchParams(window.location.search).get("id");
+      if (!id) return;
 
-    sobre.addEventListener("click", () => {
-      sobre.classList.add("abierto");
-      for (let i = 0; i < 6; i++) {
-        const mariposa = document.createElement("div");
-        mariposa.className = "mariposa";
-        mariposa.style.left = "50%";
-        mariposa.style.top = "50%";
-        mariposa.style.animationDelay = `${i * 0.4}s`;
-        document.body.appendChild(mariposa);
-        setTimeout(() => mariposa.remove(), 5000);
+      try {
+        const respuesta = await fetch("invitados.json");
+        const invitados = await respuesta.json();
+        const invitado = invitados[id];
+        if (!invitado) return;
+
+        document.getElementById("nombre").textContent = invitado.nombre;
+        document.getElementById("texto-cupos").textContent = invitado.cupos === 1
+          ? "1 cupo"
+          : `${invitado.cupos} cupos`;
+      } catch (error) {
+        console.log("No se pudieron cargar los datos de la invitación.", error);
       }
-      setTimeout(() => {
-        sobre.style.display = "none";
-        invitacion.style.display = "flex";
-      }, 2200);
+    }
+
+    // Control de video y sonido con animación mágica
+    const video = document.getElementById("video");
+    const sonidoBtn = document.getElementById("sonidoBtn");
+
+    sonidoBtn.addEventListener("click", () => {
+      if (video.paused) {
+        video.muted = false;
+        video.play();
+        sonidoBtn.textContent = "🏰"; // pausa
+        sonidoBtn.classList.add("activo");
+        setTimeout(() => sonidoBtn.classList.remove("activo"), 1200);
+      } else {
+        video.pause();
+        sonidoBtn.textContent = "🪄"; // reproducir
+        sonidoBtn.classList.add("activo");
+        setTimeout(() => sonidoBtn.classList.remove("activo"), 1200);
+      }
     });
+
+    cargarInvitado();
   </script>
 </body>
 </html>
