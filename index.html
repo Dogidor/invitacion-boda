@@ -5,39 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Una invitación especial</title>
   <style>
-    body { margin: 0; background: #000; color: #fff; font-family: Georgia, serif; }
-    video { display: block; width: 100%; height: 100vh; object-fit: cover; }
+    body {
+      margin: 0;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .video-wrapper {
+      width: 100%;
+      max-width: 1280px; /* ancho máximo del video */
+      aspect-ratio: 16/9; /* mantiene proporción original */
+      position: relative;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
     #overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      display: none; flex-direction: column; align-items: center; justify-content: center;
-      color: #fff; text-align: center;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
       background: rgba(0,0,0,0.3);
       animation: fadeIn 1.5s ease forwards;
     }
-    h1 { font-size: 2.8rem; margin: 0 0 12px; color: #92aa67; }
-    .mensaje { font-size: 1.2rem; margin: 0; }
+    h1 {
+      font-size: 2.8rem;
+      margin: 0 0 12px;
+      color: #92aa67;
+    }
+    .mensaje {
+      font-size: 1.2rem;
+      margin: 0;
+    }
     .boton {
-      display: inline-block; margin-top: 20px; padding: 10px 20px;
-      border-radius: 999px; background: #e4e8d5; color: #4a4a4a;
-      text-decoration: none; font-size: 1rem;
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: #e4e8d5;
+      color: #4a4a4a;
+      text-decoration: none;
+      font-size: 1rem;
     }
     @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
   </style>
 </head>
 <body>
-  <video id="video" playsinline preload="metadata" muted>
-    <source id="videoSource" src="" type="video/mp4" />
-    Tu navegador no puede reproducir este video.
-  </video>
+  <div class="video-wrapper">
+    <video id="video" playsinline preload="metadata" muted>
+      <source id="videoSource" src="" type="video/mp4" />
+      Tu navegador no puede reproducir este video.
+    </video>
 
-  <section id="overlay">
-    <h1 id="nombre"></h1>
-    <p class="mensaje"><span id="texto-cupos"></span></p>
-    <a id="boton-informacion" class="boton" href="https://platypus-497yjd.my.canva.site/boda-feliz-andres-natalia">
-      Ver más información 🤍
-    </a>
-  </section>
+    <section id="overlay">
+      <h1 id="nombre"></h1>
+      <p class="mensaje"><span id="texto-cupos"></span></p>
+      <a id="boton-informacion" class="boton" href="https://platypus-497yjd.my.canva.site/boda-feliz-andres-natalia">
+        Ver más información 🤍
+      </a>
+    </section>
+  </div>
 
   <script>
     async function cargarInvitado() {
