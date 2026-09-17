@@ -19,7 +19,7 @@
       max-width: 1280px;
       aspect-ratio: 16/9;
       position: relative;
-      overflow: hidden; /* asegura que nada sobresalga */
+      overflow: hidden;
     }
     video {
       width: 100%;
@@ -42,8 +42,8 @@
     /* Textos con sombreado y límites */
     #nombre, #texto-cupos {
       text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-      max-width: 90%; /* nunca más ancho que el video */
-      word-wrap: break-word; /* corta palabras largas */
+      max-width: 90%;
+      word-wrap: break-word;
       overflow-wrap: break-word;
     }
     #nombre {
@@ -66,23 +66,25 @@
       font-family: 'Great Vibes', cursive;
       font-weight: normal;
     }
+    /* Botón estilo brochazo */
     #boton-informacion {
       position: absolute;
       top: 92%;
       left: 50%;
       transform: translateX(-50%);
-      background: #e4e8d5; /* sólido, siempre legible */
+      background: linear-gradient(135deg, rgba(228,232,213,1) 60%, rgba(200,200,180,0.9) 100%);
+      clip-path: polygon(5% 0, 95% 0, 100% 50%, 95% 100%, 5% 100%, 0 50%);
       color: #000;
-      padding: 6px 14px;
-      border: 1px solid #e4e8d5;
-      border-radius: 999px;
+      padding: 10px 25px;
+      border: none;
       text-decoration: none;
       font-size: 0.9rem;
       font-family: 'Playfair Display', serif;
       transition: all 0.3s ease;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
     }
     #boton-informacion:hover {
-      background: #dcdcdc;
+      background: #e4e8d5;
       color: #000;
     }
   </style>
@@ -91,7 +93,7 @@
   <div class="video-wrapper">
     <!-- Video en loop eterno con audio incrustado y poster final -->
     <video id="video" autoplay loop playsinline poster="ultima_imagen.jpg">
-      <source id="videoSource" src="video_con_audio.mp4" type="video/mp4" />
+      <source id="videoSource" src="Singular.Mp4.mp4" type="video/mp4" />
     </video>
 
     <section id="overlay">
@@ -115,7 +117,8 @@
         if (!invitado) return;
 
         const videoSource = document.getElementById("videoSource");
-        videoSource.src = invitado.cupos > 1 ? "Plural_con_audio.mp4" : "Singular_con_audio.mp4";
+        // Usamos los nombres originales que ya tenías
+        videoSource.src = invitado.cupos > 1 ? "Plural.Mp4.mp4" : "Singular.Mp4.mp4";
 
         const video = document.getElementById("video");
         video.load();
