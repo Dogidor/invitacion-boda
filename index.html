@@ -26,36 +26,55 @@
     }
     #overlay {
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
+      bottom: 10%; /* aparece dentro del video, no oscurece todo */
+      left: 50%;
+      transform: translateX(-50%);
       display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       color: #fff;
       text-align: center;
-      background: rgba(0,0,0,0.3);
-      animation: fadeIn 1.5s ease forwards;
     }
     h1 {
       font-size: 2.8rem;
       margin: 0 0 12px;
       color: #92aa67;
+      opacity: 0;
+      animation: slideDown 1.5s ease forwards;
+      animation-delay: 0.3s;
     }
     .mensaje {
       font-size: 1.2rem;
-      margin: 0;
+      margin: 0 0 12px;
+      opacity: 0;
+      animation: fadeInScale 1.5s ease forwards;
+      animation-delay: 1s;
     }
     .boton {
       display: inline-block;
-      margin-top: 20px;
       padding: 10px 20px;
       border-radius: 999px;
       background: #e4e8d5;
       color: #4a4a4a;
       text-decoration: none;
       font-size: 1rem;
+      opacity: 0;
+      animation: fadeUp 1.5s ease forwards;
+      animation-delay: 1.8s;
     }
-    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    @keyframes slideDown {
+      from {opacity:0; transform: translateY(-30px);}
+      to {opacity:1; transform: translateY(0);}
+    }
+    @keyframes fadeInScale {
+      from {opacity:0; transform: scale(0.9);}
+      to {opacity:1; transform: scale(1);}
+    }
+    @keyframes fadeUp {
+      from {opacity:0; transform: translateY(20px);}
+      to {opacity:1; transform: translateY(0);}
+    }
   </style>
 </head>
 <body>
@@ -101,7 +120,8 @@
         // Mostrar nombre y cupos en el segundo 25
         video.addEventListener("timeupdate", () => {
           if (video.currentTime >= 25) {
-            document.getElementById("overlay").style.display = "flex";
+            const overlay = document.getElementById("overlay");
+            overlay.style.display = "flex";
             document.getElementById("nombre").textContent = invitado.nombre;
             document.getElementById("texto-cupos").textContent =
               invitado.cupos === 1 ? "1 cupo" : `${invitado.cupos} cupos`;
