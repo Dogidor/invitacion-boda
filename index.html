@@ -81,16 +81,16 @@
       color: #000;
     }
 
-    /* 📱 Versión CELULAR: video redimensionado al 95% del alto */
+    /* 📱 Versión CELULAR: video ajustado al alto del navegador */
     @media (max-width: 767px) {
       .video-wrapper {
         width: 100vw;
-        height: 95vh; /* ocupa 95% de la altura de la pantalla */
+        height: 95vh; /* 5% menos que la pantalla */
       }
       video {
         width: 100%;
         height: 100%;
-        object-fit: contain; /* muestra todo el video sin recortes */
+        object-fit: cover; /* llena el espacio sin franjas negras */
       }
       #nombre {
         font-size: 6vw;
