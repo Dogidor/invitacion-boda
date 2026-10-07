@@ -9,9 +9,6 @@
     body {
       margin: 0;
       background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
       cursor: pointer;
     }
@@ -21,6 +18,8 @@
       aspect-ratio: 16/9;
       position: relative;
       overflow: hidden;
+      margin: 0;
+      padding: 0;
     }
     video {
       width: 100%;
@@ -81,11 +80,15 @@
       color: #000;
     }
 
-    /* 📱 Versión CELULAR: video ajustado al alto del navegador */
+    /* 📱 Versión CELULAR: video ocupa toda la pantalla sin franjas */
     @media (max-width: 767px) {
+      body {
+        height: 100vh;
+        overflow: hidden; /* evita scroll */
+      }
       .video-wrapper {
         width: 100vw;
-        height: 95vh; /* 5% menos que la pantalla */
+        height: 100vh; /* ocupa toda la pantalla */
       }
       video {
         width: 100%;
