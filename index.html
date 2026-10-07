@@ -13,7 +13,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      cursor: pointer; /* indica que se puede hacer clic */
+      cursor: pointer;
     }
     .video-wrapper {
       width: 100%;
@@ -40,15 +40,15 @@
       to { opacity: 1; transform: translateY(0); }
     }
     #nombre, #texto-cupos {
-      font-weight: normal; /* sin negrilla */
-      text-shadow: none;   /* sin sombra */
+      font-weight: normal;
+      text-shadow: none;
     }
     #nombre {
       position: absolute;
       top: 57%;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 2.8rem;
+      font-size: clamp(1.8rem, 6vw, 2.8rem); /* mínimo, fluido, máximo */
       color: #92aa67;
       font-family: 'Great Vibes', cursive;
     }
@@ -57,7 +57,7 @@
       top: 85%;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 1.5rem;
+      font-size: clamp(1rem, 4.5vw, 1.5rem);
       color: #92aa67;
       font-family: 'Great Vibes', cursive;
     }
@@ -68,10 +68,10 @@
       transform: translateX(-50%);
       background: rgba(228,232,213,0.95);
       color: #000;
-      padding: 8px 18px;
+      padding: clamp(6px, 2vw, 12px) clamp(12px, 4vw, 18px);
       border: none;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: clamp(0.9rem, 3vw, 1rem);
       font-family: 'Playfair Display', serif;
       transition: all 0.3s ease;
     }
@@ -83,7 +83,6 @@
 </head>
 <body>
   <div class="video-wrapper">
-    <!-- Video SIN autoplay y SIN loop -->
     <video id="video" playsinline>
       <source id="videoSource" src="Singular.Mp4.mp4" type="video/mp4" />
     </video>
@@ -91,7 +90,7 @@
     <section id="overlay">
       <h1 id="nombre"></h1>
       <p><span id="texto-cupos"></span></p>
-      <a id="boton-informacion" href="https://dogidor.github.io/invitacion-boda/?id=lala">
+      <a id="boton-informacion" href="https://platypus-497yjd.my.canva.site/boda-feliz-andres-natalia">
         Ver más información 🤍
       </a>
     </section>
@@ -114,16 +113,13 @@
         const videoSource = document.getElementById("videoSource");
         const video = document.getElementById("video");
 
-        // Selección de video según cupos
         videoSource.src = invitado.cupos > 1 ? "Plural.Mp4.mp4" : "Singular.Mp4.mp4";
-        video.load(); // fuerza la recarga del archivo correcto
+        video.load();
 
-        // Iniciar video SOLO al hacer clic/touch
         document.body.addEventListener("click", () => {
           video.play();
         }, { once: true });
 
-        // Mostrar nombre y cupos en el segundo 22
         video.addEventListener("timeupdate", () => {
           if (video.currentTime >= 22) {
             const overlay = document.getElementById("overlay");
@@ -135,7 +131,6 @@
           }
         });
 
-        // Cuando el video termina, se queda en el último frame
         video.addEventListener("ended", () => {
           video.pause();
           video.currentTime = video.duration;
