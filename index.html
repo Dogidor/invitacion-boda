@@ -20,10 +20,12 @@
       max-width: 1280px;
       aspect-ratio: 16/9;
       position: relative;
+      overflow: hidden; /* evita desbordes */
     }
     video {
       width: 100%;
       height: 100%;
+      object-fit: cover; /* mantiene proporción y llena el contenedor */
       display: block;
     }
     #overlay {
@@ -48,7 +50,7 @@
       top: 57%;
       left: 50%;
       transform: translateX(-50%);
-      font-size: clamp(2rem, 7vw, 3rem); /* mínimo, fluido, máximo */
+      font-size: clamp(2rem, 7vw, 3rem);
       color: #92aa67;
       font-family: 'Great Vibes', cursive;
     }
