@@ -81,29 +81,29 @@
       color: #000;
     }
 
-    /* 📱 Versión CELULAR: video más corto para que todo quepa */
+    /* 📱 Versión CELULAR: video redimensionado al navegador */
     @media (max-width: 767px) {
       .video-wrapper {
-        width: 100%;
-        height: 90vh; /* ocupa un poco menos que toda la pantalla */
+        width: 100vw;
+        height: 100vh; /* ocupa toda la ventana del navegador */
       }
       video {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* llena el espacio sin franjas negras */
+        object-fit: contain; /* muestra todo el video sin recortes */
       }
       #nombre {
         font-size: 6vw;
-        top: 50%; /* subimos un poco */
+        top: 50%;
       }
       #texto-cupos {
         font-size: 4.5vw;
-        top: 75%; /* subimos un poco */
+        top: 75%;
       }
       #boton-informacion {
         font-size: 3.5vw;
         padding: 2vw 4vw;
-        top: 88%; /* subimos un poco */
+        top: 88%;
       }
     }
   </style>
