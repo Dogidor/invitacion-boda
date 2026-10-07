@@ -20,12 +20,10 @@
       max-width: 1280px;
       aspect-ratio: 16/9;
       position: relative;
-      overflow: hidden; /* evita desbordes */
     }
     video {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* mantiene proporción y llena el contenedor */
       display: block;
     }
     #overlay {
@@ -50,7 +48,7 @@
       top: 57%;
       left: 50%;
       transform: translateX(-50%);
-      font-size: clamp(2rem, 7vw, 3rem);
+      font-size: 2.8rem; /* versión PC */
       color: #92aa67;
       font-family: 'Great Vibes', cursive;
     }
@@ -59,7 +57,7 @@
       top: 85%;
       left: 50%;
       transform: translateX(-50%);
-      font-size: clamp(1.2rem, 5vw, 2rem);
+      font-size: 1.5rem; /* versión PC */
       color: #92aa67;
       font-family: 'Great Vibes', cursive;
     }
@@ -70,16 +68,66 @@
       transform: translateX(-50%);
       background: rgba(228,232,213,0.95);
       color: #000;
-      padding: clamp(8px, 2vw, 14px) clamp(16px, 4vw, 24px);
+      padding: 8px 18px;
       border: none;
       text-decoration: none;
-      font-size: clamp(1rem, 3.5vw, 1.2rem);
+      font-size: 0.9rem; /* versión PC */
       font-family: 'Playfair Display', serif;
       transition: all 0.3s ease;
     }
     #boton-informacion:hover {
       background: #e4e8d5;
       color: #000;
+    }
+
+    /* 📱 Versión CELULAR */
+    @media (max-width: 767px) {
+      .video-wrapper {
+        width: 100%;
+        height: auto;
+      }
+      video {
+        width: 100%;
+        height: auto;
+      }
+      #nombre {
+        font-size: 6vw;
+        top: 55%;
+      }
+      #texto-cupos {
+        font-size: 4.5vw;
+        top: 80%;
+      }
+      #boton-informacion {
+        font-size: 3.5vw;
+        padding: 2vw 4vw;
+        top: 90%;
+      }
+    }
+
+    /* 💻 Versión TABLET */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .video-wrapper {
+        width: 100%;
+        height: auto;
+      }
+      video {
+        width: 100%;
+        height: auto;
+      }
+      #nombre {
+        font-size: 4vw;
+        top: 56%;
+      }
+      #texto-cupos {
+        font-size: 2.5vw;
+        top: 82%;
+      }
+      #boton-informacion {
+        font-size: 2vw;
+        padding: 1vw 3vw;
+        top: 90%;
+      }
     }
   </style>
 </head>
