@@ -3,133 +3,128 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Invitación con animación</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
+  <title>Invitación Especial</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
-      background: #000;
+      background: #fdf6f0;
+      font-family: 'Georgia', serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      cursor: pointer;
+      overflow: hidden;
     }
-    .video-wrapper {
-      width: 100%;
-      max-width: 1280px;
-      aspect-ratio: 16/9;
+
+    /* --- SOBRE --- */
+    .sobre {
       position: relative;
+      width: min(90%, 320px);
+      height: 200px;
+      background: #fff;
+      border: 2px solid #d4a373;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      cursor: pointer;
+      perspective: 1000px;
+      transition: transform 0.8s ease;
     }
-    video {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-    #overlay {
+    .flap {
       position: absolute;
-      inset: 0;
-      display: none;
-      color: #fff;
-      text-align: center;
-      opacity: 0;
-      animation: fadeIn 2s ease forwards;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
+      top: 0; left: 0;
+      width: 100%; height: 100px;
+      background: #d4a373;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: transform 1s ease;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+    .sobre.abierto .flap { transform: rotateX(180deg); }
+
+    /* --- MARIPOSAS --- */
+    .mariposa {
+      position: absolute;
+      width: 36px; height: 36px;
+      background: url('https://cdn-icons-png.flaticon.com/512/1998/1998610.png') no-repeat center/contain;
+      opacity: 0;
+      animation: volar 5s ease-in-out forwards;
+    }
+    @keyframes volar {
+      0% { opacity: 0; transform: translateY(0) scale(0.5); }
+      20% { opacity: 1; }
+      100% { transform: translate(-150px, -350px) rotate(360deg) scale(1); opacity: 0; }
+    }
+
+    /* --- INVITACIÓN --- */
+    .invitacion {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      animation: aparecer 1s ease forwards;
+    }
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    #nombre {
-      font-size: clamp(2rem, 6vw, 3rem);
+    h1 {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(2rem, 8vw, 3rem);
       color: #92aa67;
-      font-family: 'Great Vibes', cursive;
+      margin: 0 0 12px;
     }
-    #texto-cupos {
-      font-size: clamp(1.2rem, 4.5vw, 2rem);
-      color: #92aa67;
-      font-family: 'Great Vibes', cursive;
+    p {
+      max-width: 360px;
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      line-height: 1.4;
+      color: #333;
     }
-    #boton-informacion {
-      background: rgba(228,232,213,0.95);
-      color: #000;
-      padding: clamp(6px, 2vw, 12px) clamp(12px, 4vw, 24px);
-      border: none;
-      text-decoration: none;
-      font-size: clamp(0.9rem, 3vw, 1.2rem);
-      font-family: 'Playfair Display', serif;
-      transition: all 0.3s ease;
-    }
-    #boton-informacion:hover {
+    a {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border-radius: 999px;
       background: #e4e8d5;
-      color: #000;
+      color: #4a4a4a;
+      text-decoration: none;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
-  <div class="video-wrapper">
-    <video id="video" playsinline>
-      <source id="videoSource" src="Singular.Mp4.mp4" type="video/mp4" />
-    </video>
+  <!-- SOBRE -->
+  <div class="sobre" id="sobre">
+    <div class="flap"></div>
+  </div>
 
-    <section id="overlay">
-      <h1 id="nombre"></h1>
-      <p id="texto-cupos"></p>
-      <a id="boton-informacion" href="https://dogidor.github.io/invitacion-boda/?id=lala">
-        Ver más información 🤍
-      </a>
-    </section>
+  <!-- INVITACIÓN -->
+  <div class="invitacion" id="invitacion">
+    <h1>Andrés & Natalia</h1>
+    <p>Esta historia no sería la misma sin ti; por eso hemos reservado <strong>2 cupos</strong> para que nos acompañes en nuestro gran día.</p>
+    <a href="https://platypus-497yjd.my.canva.site/boda-feliz-andres-natalia">Ver más información 🤍</a>
   </div>
 
   <script>
-    async function cargarInvitado() {
-      const id = new URLSearchParams(window.location.search).get("id");
-      if (!id) return;
+    const sobre = document.getElementById("sobre");
+    const invitacion = document.getElementById("invitacion");
 
-      try {
-        const respuesta = await fetch("invitados.json");
-        const invitados = await respuesta.json();
-        const invitado = invitados[id];
-        if (!invitado) {
-          console.error("Invitado no encontrado en invitados.json");
-          return;
-        }
-
-        const videoSource = document.getElementById("videoSource");
-        const video = document.getElementById("video");
-
-        videoSource.src = invitado.cupos > 1 ? "Plural.Mp4.mp4" : "Singular.Mp4.mp4";
-        video.load();
-
-        document.body.addEventListener("click", () => {
-          video.play();
-        }, { once: true });
-
-        video.addEventListener("timeupdate", () => {
-          if (video.currentTime >= 22) {
-            const overlay = document.getElementById("overlay");
-            overlay.style.display = "flex";
-            overlay.style.animation = "fadeIn 2s ease forwards";
-            document.getElementById("nombre").textContent = invitado.nombre;
-            document.getElementById("texto-cupos").textContent =
-              invitado.cupos === 1 ? "1 cupo" : `${invitado.cupos} cupos`;
-          }
-        });
-
-        video.addEventListener("ended", () => {
-          video.pause();
-          video.currentTime = video.duration;
-        });
-      } catch (error) {
-        console.log("Error cargando invitado:", error);
+    sobre.addEventListener("click", () => {
+      sobre.classList.add("abierto");
+      for (let i = 0; i < 6; i++) {
+        const mariposa = document.createElement("div");
+        mariposa.className = "mariposa";
+        mariposa.style.left = "50%";
+        mariposa.style.top = "50%";
+        mariposa.style.animationDelay = `${i * 0.4}s`;
+        document.body.appendChild(mariposa);
+        setTimeout(() => mariposa.remove(), 5000);
       }
-    }
-    cargarInvitado();
+      setTimeout(() => {
+        sobre.style.display = "none";
+        invitacion.style.display = "flex";
+      }, 2200);
+    });
   </script>
 </body>
 </html>
