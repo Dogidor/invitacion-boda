@@ -28,7 +28,6 @@
       height: 100%;
       display: block;
     }
-
     #overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -42,7 +41,6 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     #nombre, #texto-cupos {
       font-weight: normal;
       text-shadow: none;
@@ -84,7 +82,7 @@
       color: #000;
     }
 
-    /* 📱 Versión CELULAR (iPhone 17 base): pantalla completa sin franjas */
+    /* 📱 Versión CELULAR: pantalla completa y textos ajustados */
     @media (max-width: 767px) {
       body {
         margin: 0;
@@ -101,18 +99,20 @@
         height: 100%;
         object-fit: cover; /* llena sin franjas negras */
       }
+
+      /* 🔽 Ajustes de posición */
       #nombre {
         font-size: 6vw;
-        top: 50%;
+        top: 60%; /* bajamos 10% */
       }
       #texto-cupos {
         font-size: 4.5vw;
-        top: 75%;
+        top: 95%; /* bajamos 20% */
       }
       #boton-informacion {
         font-size: 3.5vw;
         padding: 2vw 4vw;
-        top: 88%;
+        top: 95%; /* bajamos 7% */
       }
     }
   </style>
