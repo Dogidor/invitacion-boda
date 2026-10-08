@@ -82,22 +82,22 @@
       color: #000;
     }
 
-    /* 📱 Versión CELULAR: pantalla completa y textos ajustados */
+    /* 📱 Versión CELULAR con guías */
     @media (max-width: 767px) {
       body {
         margin: 0;
-        height: 100dvh; /* altura dinámica real del viewport */
-        overflow: hidden; /* evita scroll */
-        display: block; /* quitamos centrado para móvil */
+        height: 100dvh;
+        overflow: hidden;
+        display: block;
       }
       .video-wrapper {
         width: 100vw;
-        height: 100dvh; /* ocupa toda la pantalla visible */
+        height: 100dvh;
       }
       video {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* llena sin franjas negras */
+        object-fit: cover;
       }
 
       /* 🔽 Ajustes de posición */
@@ -114,6 +114,21 @@
         padding: 2vw 4vw;
         top: 95%; /* bajamos 7% */
       }
+
+      /* Líneas guías para porcentajes */
+      .guia {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: rgba(255,255,255,0.4);
+        pointer-events: none;
+      }
+      .guia50 { top: 50%; }
+      .guia60 { top: 60%; }
+      .guia75 { top: 75%; }
+      .guia88 { top: 88%; }
+      .guia95 { top: 95%; }
     }
   </style>
 </head>
@@ -129,6 +144,13 @@
       <a id="boton-informacion" href="https://platypus-497yjd.my.canva.site/boda-feliz-andres-natalia">
         Ver más información 🤍
       </a>
+
+      <!-- Líneas guías visibles solo en celular -->
+      <div class="guia guia50"></div>
+      <div class="guia guia60"></div>
+      <div class="guia guia75"></div>
+      <div class="guia guia88"></div>
+      <div class="guia guia95"></div>
     </section>
   </div>
 
