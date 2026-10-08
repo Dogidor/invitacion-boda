@@ -6,6 +6,7 @@
   <title>Invitación con animación</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
   <style>
+    /* ✅ Versión PC intacta */
     body {
       margin: 0;
       background: #000;
@@ -49,7 +50,7 @@
       top: 57%;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 2.8rem; /* versión PC */
+      font-size: 2.8rem;
       color: #92aa67;
       font-family: 'Great Vibes', cursive;
     }
@@ -58,7 +59,7 @@
       top: 85%;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 1.5rem; /* versión PC */
+      font-size: 1.5rem;
       color: #92aa67;
       font-family: 'Great Vibes', cursive;
     }
@@ -72,7 +73,7 @@
       padding: 8px 18px;
       border: none;
       text-decoration: none;
-      font-size: 0.9rem; /* versión PC */
+      font-size: 0.9rem;
       font-family: 'Playfair Display', serif;
       transition: all 0.3s ease;
     }
@@ -81,16 +82,22 @@
       color: #000;
     }
 
-    /* 📱 Versión CELULAR: video ajustado al alto del navegador */
+    /* 📱 Versión CELULAR: pantalla completa sin franjas ni scroll */
     @media (max-width: 767px) {
+      body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden; /* evita scroll */
+        display: block; /* quitamos centrado para móvil */
+      }
       .video-wrapper {
         width: 100vw;
-        height: 95vh; /* 5% menos que la pantalla */
+        height: 100vh; /* ocupa toda la pantalla */
       }
       video {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* llena el espacio sin franjas negras */
+        object-fit: cover; /* llena sin franjas negras */
       }
       #nombre {
         font-size: 6vw;
