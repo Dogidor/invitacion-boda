@@ -28,6 +28,7 @@
       height: 100%;
       display: block;
     }
+
     #overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -41,6 +42,7 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
     #nombre, #texto-cupos {
       font-weight: normal;
       text-shadow: none;
@@ -82,17 +84,17 @@
       color: #000;
     }
 
-    /* 📱 Versión CELULAR: pantalla completa sin franjas ni scroll */
+    /* 📱 Versión CELULAR (iPhone 17 base): pantalla completa sin franjas */
     @media (max-width: 767px) {
       body {
         margin: 0;
-        height: 100vh;
+        height: 100dvh; /* altura dinámica real del viewport */
         overflow: hidden; /* evita scroll */
         display: block; /* quitamos centrado para móvil */
       }
       .video-wrapper {
         width: 100vw;
-        height: 100vh; /* ocupa toda la pantalla */
+        height: 100dvh; /* ocupa toda la pantalla visible */
       }
       video {
         width: 100%;
