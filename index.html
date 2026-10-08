@@ -100,19 +100,24 @@
         object-fit: cover;
       }
 
-      /* 🔽 Ajustes de posición */
+      /* 🔽 Ajustes base */
       #nombre {
         font-size: 9vw; /* más grande */
-        top: 62%; /* bajado */
+        left: 50%;
+        transform: translateX(-50%);
       }
       #texto-cupos {
         font-size: 7vw; /* más discreto */
-        top: 89%; /* ubicación */
+        top: 89%; /* ubicación fija */
+        left: 50%;
+        transform: translateX(-50%);
       }
       #boton-informacion {
         font-size: 3.5vw;
         padding: 2vw 4vw;
         top: 93.5%; /* más abajo */
+        left: 50%;
+        transform: translateX(-50%);
       }
     }
   </style>
@@ -161,7 +166,17 @@
             const overlay = document.getElementById("overlay");
             overlay.style.display = "block";
             overlay.style.animation = "fadeIn 2s ease forwards";
-            document.getElementById("nombre").textContent = invitado.nombre;
+
+            const nombreElemento = document.getElementById("nombre");
+            nombreElemento.textContent = invitado.nombre;
+
+            // Ajuste dinámico según longitud del nombre
+            if (invitado.nombre.length > 8) {
+              nombreElemento.style.top = "62%";
+            } else {
+              nombreElemento.style.top = "63.5%";
+            }
+
             document.getElementById("texto-cupos").textContent =
               invitado.cupos === 1 ? "1 cupo" : `${invitado.cupos} cupos`;
           }
