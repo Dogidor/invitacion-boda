@@ -12,19 +12,22 @@
       height: 100vh;
       cursor: pointer;
     }
-    /* ✅ Versión PC: se mantiene igual */
+
+    /* ✅ Versión PC y tablet: intacta */
     .video-wrapper {
       width: 100%;
       max-width: 1280px;
       aspect-ratio: 16/9;
       position: relative;
       overflow: hidden;
+      margin: auto; /* centrado en pantalla */
     }
     video {
       width: 100%;
       height: 100%;
       display: block;
     }
+
     #overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -38,6 +41,7 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
     #nombre, #texto-cupos {
       font-weight: normal;
       text-shadow: none;
@@ -79,7 +83,7 @@
       color: #000;
     }
 
-    /* 📱 Versión CELULAR: video ocupa toda la pantalla sin franjas */
+    /* 📱 Versión CELULAR: pantalla completa sin franjas */
     @media (max-width: 767px) {
       body {
         height: 100vh;
@@ -88,11 +92,12 @@
       .video-wrapper {
         width: 100vw;
         height: 100vh; /* ocupa toda la pantalla */
+        margin: 0; /* pegado arriba */
       }
       video {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* llena el espacio sin franjas negras */
+        object-fit: cover; /* llena sin franjas negras */
       }
       #nombre {
         font-size: 6vw;
