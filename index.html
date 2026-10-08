@@ -68,18 +68,19 @@
       top: 92%;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(228,232,213,0.95);
-      color: #000;
-      padding: 8px 18px;
+      background-color: #A8C686; /* verde pastel base */
+      color: #fff;
       border: none;
+      border-radius: 12px; /* puntas redondeadas */
+      padding: 8px 18px;
       text-decoration: none;
       font-size: 0.9rem;
       font-family: 'Playfair Display', serif;
-      transition: all 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
     #boton-informacion:hover {
-      background: #e4e8d5;
-      color: #000;
+      background-color: #C3DCA3; /* verde pastel más claro */
+      transform: scale(1.05);
     }
 
     /* 📱 Versión CELULAR ajustada */
@@ -100,24 +101,28 @@
         object-fit: cover;
       }
 
-      /* 🔽 Ajustes base */
       #nombre {
-        font-size: 9vw; /* más grande */
+        font-size: 9vw;
         left: 50%;
         transform: translateX(-50%);
       }
       #texto-cupos {
-        font-size: 7vw; /* más discreto */
-        top: 88%; /* nueva ubicación */
+        font-size: 7vw;
+        top: 88%;
         left: 50%;
         transform: translateX(-50%);
       }
       #boton-informacion {
         font-size: 3.5vw;
         padding: 2vw 4vw;
-        top: 93.5%; /* más abajo */
+        top: 93.5%;
         left: 50%;
         transform: translateX(-50%);
+        background-color: #A8C686;
+      }
+      #boton-informacion:hover {
+        background-color: #C3DCA3;
+        transform: scale(1.05);
       }
     }
   </style>
