@@ -1,8 +1,8 @@
 {
-  "estefania-de-rivero": { "nombre": "Estefanía de Rivero", "cupos": 2 },
+  "estefania-de-rivero": { "nombre": "Estefanía de Rivero", "cupos": 1 },
   "cata-sebas": { "nombre": "cata y sebas", "cupos": 2 },
-  "familia-cortes-mojica": { "nombre": "Familia Cortes Mojica", "cupos": 4 },
-  "familia-ojeda-mojica": { "nombre": "Familia Ojeda Mojica", "cupos": 4 },
+  "familia-cortes-mojica": { "nombre": "Familia Cortes Mojica", "cupos": 3 },
+  "familia-ojeda-mojica": { "nombre": "Familia Ojeda Mojica", "cupos": 3 },
   "lala": { "nombre": "Lala", "cupos": 1 },
   "maria-isabel-lopez-pulido": { "nombre": "María Isabel López Pulido", "cupos": 1 },
   "mariam-valcarcel": { "nombre": "Mariam Valcarcel", "cupos": 1 }
