@@ -96,7 +96,7 @@
         object-fit: cover;
       }
       #nombre {
-        font-size: 9vw;
+        font-size: 9vw; /* tamaño uniforme en celular */
         left: 50%;
         transform: translateX(-50%);
       }
@@ -158,14 +158,17 @@
             overlay.style.display = "block";
             overlay.style.animation = "fadeIn 2s ease forwards";
             const nombreElemento = document.getElementById("nombre");
-            nombreElemento.textContent = invitado.nombre;
             // Excepción para Cata y Sebas
             if (id === "cata-sebas") {
+              nombreElemento.textContent = "Cata y Sebas";
               nombreElemento.style.top = "60%";
-            } else if (invitado.nombre.length > 8) {
-              nombreElemento.style.top = "57%";
             } else {
-              nombreElemento.style.top = "62%";
+              nombreElemento.textContent = invitado.nombre;
+              if (invitado.nombre.length > 8) {
+                nombreElemento.style.top = "57%";
+              } else {
+                nombreElemento.style.top = "62%";
+              }
             }
             document.getElementById("texto-cupos").textContent =
               invitado.cupos === 1 ? "1 cupo" : `${invitado.cupos} cupos`;
