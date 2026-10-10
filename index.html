@@ -6,7 +6,6 @@
   <title>Invitación con animación</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
   <style>
-    /* ✅ Versión PC intacta */
     body {
       margin: 0;
       background: #000;
@@ -47,7 +46,6 @@
     }
     #nombre {
       position: absolute;
-      top: 57%;
       left: 50%;
       transform: translateX(-50%);
       font-size: 2.8rem;
@@ -63,17 +61,15 @@
       color: #92aa67;
       font-family: 'Great Vibes', cursive;
     }
-
-    /* 🎨 Botón verde #9FB477 */
     #boton-informacion {
       position: absolute;
       top: 92%;
       left: 50%;
       transform: translateX(-50%);
-      background-color: #9FB477; /* verde pastel */
+      background-color: #9FB477;
       color: #fff;
       border: none;
-      border-radius: 12px; /* puntas redondeadas */
+      border-radius: 12px;
       padding: 8px 18px;
       text-decoration: none;
       font-size: 0.9rem;
@@ -81,10 +77,8 @@
       transition: background-color 0.3s ease;
     }
     #boton-informacion:hover {
-      background-color: #B5C98E; /* verde más claro al pasar el dedo */
+      background-color: #B5C98E;
     }
-
-    /* 📱 Versión CELULAR ajustada */
     @media (max-width: 767px) {
       body {
         margin: 0;
@@ -101,7 +95,6 @@
         height: 100%;
         object-fit: cover;
       }
-
       #nombre {
         font-size: 9vw;
         left: 50%;
@@ -109,7 +102,7 @@
       }
       #texto-cupos {
         font-size: 7vw;
-        top: 88%; /* nueva ubicación */
+        top: 88%;
         left: 50%;
         transform: translateX(-50%);
       }
@@ -132,7 +125,6 @@
     <video id="video" playsinline>
       <source id="videoSource" src="Singular.Mp4.mp4" type="video/mp4" />
     </video>
-
     <section id="overlay">
       <h1 id="nombre"></h1>
       <p><span id="texto-cupos"></span></p>
@@ -141,12 +133,10 @@
       </a>
     </section>
   </div>
-
   <script>
     async function cargarInvitado() {
       const id = new URLSearchParams(window.location.search).get("id");
       if (!id) return;
-
       try {
         const respuesta = await fetch("invitados.json");
         const invitados = await respuesta.json();
@@ -155,38 +145,32 @@
           console.error("Invitado no encontrado en invitados.json");
           return;
         }
-
         const videoSource = document.getElementById("videoSource");
         const video = document.getElementById("video");
-
         videoSource.src = invitado.cupos > 1 ? "Plural.Mp4.mp4" : "Singular.Mp4.mp4";
         video.load();
-
         document.body.addEventListener("click", () => {
           video.play();
         }, { once: true });
-
         video.addEventListener("timeupdate", () => {
           if (video.currentTime >= 22) {
             const overlay = document.getElementById("overlay");
             overlay.style.display = "block";
             overlay.style.animation = "fadeIn 2s ease forwards";
-
             const nombreElemento = document.getElementById("nombre");
             nombreElemento.textContent = invitado.nombre;
-
-            // Ajuste dinámico según longitud del nombre
-            if (invitado.nombre.length > 8) {
+            // Excepción para Cata y Sebas
+            if (id === "cata-sebas") {
+              nombreElemento.style.top = "60%";
+            } else if (invitado.nombre.length > 8) {
               nombreElemento.style.top = "57%";
             } else {
               nombreElemento.style.top = "62%";
             }
-
             document.getElementById("texto-cupos").textContent =
               invitado.cupos === 1 ? "1 cupo" : `${invitado.cupos} cupos`;
           }
         });
-
         video.addEventListener("ended", () => {
           video.pause();
           video.currentTime = video.duration;
