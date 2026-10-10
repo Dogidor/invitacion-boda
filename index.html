@@ -138,7 +138,8 @@
       const id = new URLSearchParams(window.location.search).get("id");
       if (!id) return;
       try {
-        const respuesta = await fetch("invitados.json");
+        // añadimos ?v=3 para forzar versión nueva
+        const respuesta = await fetch("invitados.json?v=3");
         const invitados = await respuesta.json();
         const invitado = invitados[id];
         if (!invitado) {
